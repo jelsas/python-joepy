@@ -83,6 +83,24 @@ class Graph(object):
     dists = dict( (k, v) for (k, v) in dists.iteritems() if v < INF )
     return dists
 
+  def all_path_lengths(self):
+    '''The Floyd-Warshall algorithm to find the distance of all minimum-
+    length paths between any two vetices.  Returns a dictionary such that
+    d[(i, j)] is the shortest path between nodes i and j.  If no such path
+    exists, this key won't be present in the dictionary.'''
+    INF = 1e1000
+    d = dict()
+    for (f, t, w) in self.edges:
+      d[(f, t)] = w
+    vertices = self.vertices()
+    for k in vertices:
+      for i in vertices:
+        for j in vertices:
+          if i == j: continue
+          d[(i, j)] = min( d.get((i, j), INF), d.get((i, k), INF)+d.get((k, j), INF) )
+    # filter the INF entries
+    return dict( (k, v) for (k, v) in d.iteritems() if v != INF )
+
   def reachable_from(self, source):
     return set(self.shortest_path(source).keys())
 
