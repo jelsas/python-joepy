@@ -11,6 +11,10 @@ class Graph(object):
       raise ValueError('We don\'t deal with negative weights so well here')
     self.edges.append( (from_vertex, to_vertex, weight) )
 
+  def reverse(self):
+    '''Reverses the direction of all the edges, modifying the graph in place'''
+    self.edges = [(t, f, w) for (f, t, w) in self.edges]
+
   def vertices(self):
     return set(t for (f, t, w) in self.edges) | \
             set(f for (f, t, w) in self.edges)
@@ -80,7 +84,7 @@ class Graph(object):
     return dists
 
   def reachable_from(self, source):
-    return shortest_path.keys()
+    return set(self.shortest_path(source).keys())
 
   def to_graphvis(self, node_formatter = str):
     '''Returns a string representation of this graph in a format readable by
