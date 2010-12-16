@@ -57,7 +57,6 @@ class Graph(object):
           min_k, min_v = k, v
       return min_k, min_v
 
-
     vertices = self.vertices()
     if source not in vertices:
       raise ValueError('source is not in this graph')
