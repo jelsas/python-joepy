@@ -91,7 +91,7 @@ class Graph(object):
     d = dict()
     for (f, t, w) in self.edges:
       d[(f, t)] = w
-    vertices = self.vertices
+    vertices = self.vertices()
     for k in vertices:
       for i in vertices:
         if i == k: continue
